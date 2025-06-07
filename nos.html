@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nossa História • Aniversário</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" href="image/girassol.png" type="image/png" />
+     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;600&display=swap');
+        body { font-family: 'Montserrat', sans-serif; }
+        h1, h2 { font-family: 'Dancing Script', cursive; }
+    </style>
+</head>
+<body class="bg-pink-50 text-gray-800 font-sans">
+
+    <audio autoplay loop class="hidden" id="bg-music">
+        <source src="musica/musicaFundo.mp3" type="audio/mp3" />
+        Seu navegador não suporta áudio.
+    </audio>
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const music = document.getElementById('bg-music');
+            music.volume = 0.3;
+            music.play().catch(error => {
+                console.log('Autoplay bloqueado.');
+                document.body.addEventListener('click', () => music.play(), { once: true });
+            });
+        });
+    </script>
+
+    <header class="sticky top-0 bg-pink-100/90 backdrop-blur-sm shadow-sm z-10">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="index.html" class="text-3xl text-pink-500" style="font-family: 'Dancing Script', cursive;">Eu & Você</a>
+            <nav class="space-x-2 sm:space-x-4">
+                <a href="nos.html" class="bg-white text-sm px-4 py-2 rounded-lg font-semibold text-pink-600 shadow-sm ring-2 ring-pink-200">Us</a>
+                <a href="album.html" class="bg-pink-200/50 hover:bg-pink-200 transition-colors text-sm px-4 py-2 rounded-lg font-semibold text-pink-600">Álbum</a>
+                <a href="https://www.youtube.com/watch?v=2HHFPojl-Vk&ab_channel=DonaLegendas" target="_blank" class="bg-pink-200/50 hover:bg-pink-200 transition-colors text-sm px-4 py-2 rounded-lg font-semibold text-pink-600">Venha Comigo</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 py-12 md:py-20">
+        <div class="flex flex-col-reverse md:flex-row items-center justify-center gap-12 bg-white/50 p-8 rounded-lg shadow-lg">
+            <div class="md:w-3/5 text-center md:text-left">
+    <h2 class="text-5xl lg:text-6xl text-pink-500 mb-6">Para o amor da minha vida...</h2>
+    <div class="space-y-4 text-gray-700 leading-relaxed text-base">
+        <p>
+            Meu amor, hoje o universo inteiro celebra a sua existência, mas ninguém celebra com mais alegria do que eu. Você não apenas faz aniversário; você renova a luz que ilumina a minha vida todos os dias.
+        </p>
+        <p>
+            Cada sorriso seu é a melodia que embala a minha alma, e cada abraço seu é o meu porto seguro, o lugar para onde eu sempre quero voltar. Viver ao seu lado transformou meus dias comuns em uma aventura extraordinária.
+        </p>
+        <p class="font-semibold text-pink-600">
+            Este site é apenas um pequeno reflexo do amor gigante que sinto por você. Um lugar para começarmos a guardar os infinitos capítulos da nossa história que ainda vamos escrever.
+        </p>
+        <p class="font-bold text-lg text-pink-600">Feliz aniversário, minha vida. Eu te amo mais do que as palavras jamais conseguirão expressar!</p>
+    </div>
+</div>
+            <div class="md:w-2/5 flex justify-center">
+                <img src="image/flor.png" alt="Imagem Decorativa do Girassol" class="w-40 h-40 object-contain drop-shadow-lg transition-transform duration-500 hover:scale-110">
+            </div>
+        </div>
+    </main>
+
+    <footer class="text-center py-8 text-sm text-gray-500">
+        Feito com carinho, só pra você. 🌸
+    </footer>
+
+</body>
+</html>

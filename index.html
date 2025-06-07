@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Feliz Aniversário, Meu Amor!</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/png" href="image/girassol.png">
+    <style>
+        /* Adiciona uma fonte mais romântica do Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;600&display=swap');
+        body {
+            font-family: 'Montserrat', sans-serif;
+        }
+        h1 {
+            font-family: 'Dancing Script', cursive;
+        }
+    </style>
+</head>
+<body class="bg-pink-50 text-gray-800">
+
+    <audio autoplay loop class="hidden" id="bg-music">
+        <source src="musica/musicaFundo.mp3" type="audio/mp3" />
+        Seu navegador não suporta áudio.
+    </audio>
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const music = document.getElementById("bg-music");
+            music.volume = 0.3; // Volume baixo
+            music.play().catch(error => {
+                console.log("Autoplay bloqueado. A interação do usuário é necessária para tocar a música.");
+                // Um fallback para navegadores que bloqueiam autoplay: a música toca no primeiro clique.
+                document.body.addEventListener('click', () => music.play(), { once: true });
+            });
+        });
+    </script>
+
+    <div class="min-h-screen flex flex-col justify-center items-center p-6 text-center">
+        <header>
+            <h1 class="text-6xl md:text-8xl text-pink-500">Feliz Aniversário!</h1>
+            <p class="mt-4 text-lg md:text-xl text-gray-700">Um presente feito com todo o meu carinho, para você.</p>
+        </header>
+
+        <main class="flex flex-col sm:flex-row justify-center items-center gap-6 mt-12 w-full max-w-2xl">
+            <a href="nos.html" class="bg-white shadow-lg hover:shadow-xl transition-all duration-300 rounded-lg px-8 py-4 w-full sm:w-auto text-center border border-pink-100 hover:border-pink-300 text-lg font-semibold text-pink-500 hover:scale-105">
+                💌 Nossa História
+            </a>
+            <a href="album.html" class="bg-white shadow-lg hover:shadow-xl transition-all duration-300 rounded-lg px-8 py-4 w-full sm:w-auto text-center border border-pink-100 hover:border-pink-300 text-lg font-semibold text-pink-500 hover:scale-105">
+                📸 Nosso Álbum
+            </a>
+        </main>
+        
+        <footer class="absolute bottom-6 text-center text-sm text-gray-500">
+            Feito com ❤️, só pra você.
+        </footer>
+    </div>
+
+</body>
+</html>

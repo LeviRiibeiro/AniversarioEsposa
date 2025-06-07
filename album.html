@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nosso Álbum • Aniversário</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" href="image/girassol.png" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;600&display=swap');
+        body { font-family: 'Montserrat', sans-serif; }
+        h1 { font-family: 'Dancing Script', cursive; }
+        
+        /* Animação para as fotos aparecerem suavemente */
+        .photo-card {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body class="bg-pink-50 text-gray-800 font-sans">
+
+    <audio autoplay loop class="hidden" id="bg-music">
+        <source src="musica/musicaFundo.mp3" type="audio/mp3" />
+        Seu navegador não suporta áudio.
+    </audio>
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const music = document.getElementById('bg-music');
+            music.volume = 0.3;
+            music.play().catch(error => {
+                console.log('Autoplay bloqueado.');
+                document.body.addEventListener('click', () => music.play(), { once: true });
+            });
+        });
+    </script>
+    
+    <header class="sticky top-0 bg-pink-100/90 backdrop-blur-sm shadow-sm z-10">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="index.html" class="text-3xl text-pink-500" style="font-family: 'Dancing Script', cursive;">Eu & Você</a>
+            <nav class="space-x-2 sm:space-x-4">
+                <a href="nos.html" class="bg-pink-200/50 hover:bg-pink-200 transition-colors text-sm px-4 py-2 rounded-lg font-semibold text-pink-600">Us</a>
+                <a href="album.html" class="bg-white text-sm px-4 py-2 rounded-lg font-semibold text-pink-600 shadow-sm ring-2 ring-pink-200">Álbum</a>
+                <a href="https://www.youtube.com/watch?v=2HHFPojl-Vk&ab_channel=DonaLegendas" target="_blank" class="bg-pink-200/50 hover:bg-pink-200 transition-colors text-sm px-4 py-2 rounded-lg font-semibold text-pink-600">Venha Comigo</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 pb-16 pt-12">
+        <div class="text-center mb-12">
+            <h1 class="text-6xl md:text-7xl text-pink-500">Nosso Álbum de Memórias</h1>
+            <p class="mt-2 text-lg text-gray-700">Cada clique, um pedacinho da nossa linda história.</p>
+        </div>
+        
+        <div id="gallery" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-6">
+            </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const galleryContainer = document.getElementById('gallery');
+            
+            // ===================================================================
+            //  IMPORTANTE: Altere o número abaixo para o total de fotos que você tem!
+            //  Ex: Se você tem 20 fotos (1.jpg até 20.jpg), coloque 20.
+            // ===================================================================
+            const totalDeFotos = 70; // <--- EDITE ESTE NÚMERO
+
+            for (let i = 1; i <= totalDeFotos; i++) {
+                // Cria o card da foto
+                const card = document.createElement('div');
+                card.className = 'photo-card group bg-white border border-pink-100 shadow-lg rounded-xl overflow-hidden transform transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:z-20';
+                
+                // Adiciona um atraso na animação para um efeito cascata
+                card.style.animationDelay = `${i * 50}ms`;
+
+                // Assumindo que suas fotos estão na pasta /fotos/ e são nomeadas como 1.jpg, 2.jpg, etc.
+                const caminhoDaImagem = `image/foto ${i}.jpg`;
+                
+                // Conteúdo do card
+                card.innerHTML = `
+                    <a href="${caminhoDaImagem}" target="_blank" title="Clique para ampliar a foto ${i}">
+                        <img src="${caminhoDaImagem}" alt="Nosso momento especial ${i}" class="w-full h-72 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy">
+                    </a>
+                `;
+                
+                // Adiciona o card criado à galeria
+                galleryContainer.appendChild(card);
+            }
+        });
+    </script>
+    
+    <footer class="text-center py-8 text-sm text-gray-500">
+        Feito com carinho, só pra você. 🌸
+    </footer>
+
+</body>
+</html>
