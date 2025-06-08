@@ -7,20 +7,54 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="icon" href="image/girassol.png" />
     <style>
+        /* Fonte importada de forma segura com https */
         @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;600&display=swap');
-        body { font-family: 'Montserrat', sans-serif; }
-        h1 { font-family: 'Dancing Script', cursive; }
+        
+        /* Oculta a barra de rolagem da página */
+        html {
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none;  /* IE e Edge */
+        }
+        html::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, etc. */
+        }
+
+        body { 
+            font-family: 'Montserrat', sans-serif;
+            background-color: #FFF8F9;
+        }
+        h1 { 
+            font-family: 'Dancing Script', cursive; 
+        }
     </style>
 </head>
 <body class="bg-pink-50 text-gray-800 font-sans">
-    <header class="sticky top-0 bg-pink-100/90 backdrop-blur-sm shadow-sm z-30">
-        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
-            <a href="index.html" class="text-3xl text-pink-500" style="font-family: 'Dancing Script', cursive;">Eu & Você</a>
-            <nav class="space-x-2 sm:space-x-4">
-                <a href="nos.html" class="bg-pink-200/50 hover:bg-pink-200 transition-colors text-sm px-4 py-2 rounded-lg font-semibold text-pink-600">Para Você</a>
-                <a href="album.html" class="bg-pink-200/50 hover:bg-pink-200 transition-colors text-sm px-4 py-2 rounded-lg font-semibold text-pink-600">Álbum</a>
-                <a href="venhaComigo.html" class="bg-white text-sm px-4 py-2 rounded-lg font-semibold text-pink-600 shadow-sm ring-2 ring-pink-200">Venha Comigo</a>
-            </nav>
+    
+    <header class="sticky top-0 bg-pink-100/90 backdrop-blur-sm shadow-sm z-50">
+        <div class="max-w-7xl mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
+                <a href="index.html" class="text-3xl text-pink-500" style="font-family: 'Dancing Script', cursive;">Eu & Você</a>
+                
+                <nav class="hidden md:flex space-x-2 sm:space-x-4">
+                    <a href="nos.html" class="bg-pink-200/50 hover:bg-pink-200 transition-colors text-sm px-4 py-2 rounded-lg font-semibold text-pink-600">Para Você</a>
+                    <a href="album.html" class="bg-pink-200/50 hover:bg-pink-200 transition-colors text-sm px-4 py-2 rounded-lg font-semibold text-pink-600">Álbum</a>
+                    <a href="venhaComigo.html" class="bg-white text-sm px-4 py-2 rounded-lg font-semibold text-pink-600 shadow-sm ring-2 ring-pink-200">Venha Comigo</a>
+                </nav>
+
+                <div class="md:hidden">
+                    <button id="menu-btn" class="text-pink-600 focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-4 6h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <div id="mobile-menu" class="hidden md:hidden mt-3">
+                <a href="nos.html" class="block text-center py-2 text-sm text-pink-600 bg-pink-50 rounded-lg mb-1">Para Você</a>
+                <a href="album.html" class="block text-center py-2 text-sm text-pink-600 bg-pink-50 rounded-lg mb-1">Álbum</a>
+                <a href="venhaComigo.html" class="block text-center py-2 text-sm font-bold text-pink-700 bg-pink-200 rounded-lg">Venha Comigo</a>
+            </div>
         </div>
     </header>
 
@@ -46,5 +80,14 @@
     </footer>
 
     <script src="https://cdn.tailwindcss.com?plugins=aspect-ratio"></script>
+    <script>
+        // Script para controlar o menu hambúrguer
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
 </body>
 </html>

@@ -9,159 +9,95 @@
     <link rel="icon" href="image/girassol.png" type="image/png" />
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Great+Vibes&family=Montserrat:wght@400&display=swap');
+        html, body { overflow-x: hidden; width: 100%; }
+        body { font-family: 'Montserrat', sans-serif; }
+        #carta-titulo { font-family: 'Dancing Script', cursive; }
+        .mensagem-rainha { font-family: 'Great Vibes', cursive; font-size: 26px; line-height: 1.5; color: #4a2c3a; }
 
-        /* --- CORREÇÃO DEFINITIVA PARA A BARRA DE ROLAGEM --- */
-        html, body {
-            overflow: hidden; /* Impede a rolagem na página e oculta a barra */
-            width: 100%;
-            height: 100%;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: 'Montserrat', sans-serif;
-        }
-
-        /* --- ESTILO "RAINHA" --- */
-        #carta-titulo {
-            font-family: 'Dancing Script', cursive;
-        }
-
-        .mensagem-rainha {
-            font-family: 'Great Vibes', cursive;
-            font-size: 26px;
-            line-height: 1.5;
-            color: #4a2c3a;
-        }
-        
-        /* --- ANIMAÇÃO PRECISA E SEM BUGS --- */
-        .envelope-container {
-            position: relative;
-            width: 380px;
-            height: 250px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
+        .envelope-container { position: relative; width: 380px; height: 250px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
         .carta-folha {
-            position: absolute;
-            width: 420px;
-            height: auto;
-            max-height: 600px;
-            padding: 2rem;
-            background-color: #fdfaf6;
-            border-radius: 6px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-            z-index: 20;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0.5);
-            opacity: 0;
+            position: absolute; width: 420px; max-height: 85vh; padding: 2rem;
+            background-color: #fdfaf6; border-radius: 6px; box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            overflow-y: auto; z-index: 20; top: 50%; left: 50%;
+            transform: translate(-50%, -50%) scale(0.5); opacity: 0;
             transition: all 1.2s cubic-bezier(0.68, -0.6, 0.27, 1.55);
+            pointer-events: none; /* A carta não é clicável por padrão */
         }
         
-        .group:hover .carta-folha {
-            position: fixed;
-            top: 50%;
-            left: 50%;
+        /* Nova classe 'aberto' controla a animação via JS */
+        .envelope-container.aberto .carta-folha {
+            position: fixed; top: 50%; left: 50%;
             transform: translate(-50%, -50%) scale(1.0);
-            opacity: 1;
-            z-index: 100;
+            opacity: 1; z-index: 100;
+            pointer-events: auto; /* A carta se torna clicável para poder fechar */
         }
         
-        .envelope-fundo {
-            position: absolute; width: 100%; height: 100%;
-            background-color: #fbcfe8;
-            border-radius: 0.75rem;
-            box-shadow: 0 10px 25px -5px rgb(0 0 0 / 0.1);
-            z-index: 10;
-        }
-
-        .envelope-frente {
-            position: absolute; width: 100%; height: 100%;
-            z-index: 30;
-        }
-
+        .envelope-fundo { position: absolute; width: 100%; height: 100%; background-color: #fbcfe8; border-radius: 0.75rem; box-shadow: 0 10px 25px -5px rgb(0 0 0 / 0.1); z-index: 10; }
+        .envelope-frente { position: absolute; width: 100%; height: 100%; z-index: 30; }
         .aba { position: absolute; width: 100%; height: 100%; }
         .aba-esquerda { background-image: linear-gradient(to right, #fbcfe8, #fce7f3); clip-path: polygon(0 0, 50% 50%, 0 100%); }
         .aba-direita { background-image: linear-gradient(to left, #fbcfe8, #fce7f3); clip-path: polygon(100% 0, 50% 50%, 100% 100%); }
         .aba-baixo { background-image: linear-gradient(to top, #f9a8d4, #fbcfe8); clip-path: polygon(0 100%, 50% 50%, 100% 100%); }
-
         .aba-topo {
-            position: absolute; width: 100%; height: 50%; top: 0;
-            background-color: #f9a8d4;
-            clip-path: polygon(0 0, 100% 0, 50% 100%);
-            transform-origin: top;
-            transition: transform 0.7s ease-in-out 0.3s;
-            z-index: 40;
+            position: absolute; width: 100%; height: 50%; top: 0; background-color: #f9a8d4;
+            clip-path: polygon(0 0, 100% 0, 50% 100%); transform-origin: top;
+            transition: transform 0.7s ease-in-out 0.3s; z-index: 40;
         }
-        .group:hover .aba-topo { transform: rotateX(180deg); }
-
+        .envelope-container.aberto .aba-topo { transform: rotateX(180deg); }
         .selo {
-            position: absolute; top: 45%; left: 50%;
-            transform: translate(-50%, -50%);
-            width: 50px; height: 50px;
-            background-color: #f43f5e;
-            border-radius: 50%;
+            position: absolute; top: 45%; left: 50%; transform: translate(-50%, -50%);
+            width: 50px; height: 50px; background-color: #f43f5e; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            font-size: 1.5rem; color: white;
-            border: 3px solid #fff;
-            box-shadow: 0 0 0 2px #f43f5e;
-            z-index: 50;
+            font-size: 1.5rem; color: white; border: 3px solid #fff;
+            box-shadow: 0 0 0 2px #f43f5e; z-index: 50;
             transition: all 0.5s ease-out;
         }
-        .group:hover .selo { opacity: 0; transform: translate(-50%, -50%) scale(0); }
-
-        /* Classe para ocultar a barra de rolagem em qualquer elemento INTERNO */
-        .no-scrollbar {
-           scrollbar-width: none;  /* Firefox */
-        }
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;  /* Chrome, Safari, etc. */
-        }
-
+        .envelope-container.aberto .selo { opacity: 0; transform: translate(-50%, -50%) scale(0); }
+        .no-scrollbar { scrollbar-width: none; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
     </style>
 </head>
 <body class="bg-pink-50 text-gray-800 font-sans">
 
-    <audio autoplay loop class="hidden" id="bg-music">
-        <source src="musica/musicaFundo.mp3" type="audio/mp3" />
-        Seu navegador não suporta áudio.
-    </audio>
-
+    <audio autoplay loop class="hidden" id="bg-music"> <source src="musica/musicaFundo.mp3" type="audio/mp3" /> </audio>
+    
     <header class="sticky top-0 bg-pink-100/90 backdrop-blur-sm shadow-sm z-50">
-        <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
-            <a href="index.html" class="text-3xl text-pink-500" style="font-family: 'Dancing Script', cursive;">Eu & Você</a>
-            <nav class="space-x-2 sm:space-x-4">
-                <a href="nos.html" class="bg-white text-sm px-4 py-2 rounded-lg font-semibold text-pink-600 shadow-sm ring-2 ring-pink-200">Para Você</a>
-                <a href="album.html" class="bg-pink-200/50 hover:bg-pink-200 transition-colors text-sm px-4 py-2 rounded-lg font-semibold text-pink-600">Álbum</a>
-                 <a href="venhaComigo.html" class="bg-pink-200/50 hover:bg-pink-200 transition-colors text-sm px-4 py-2 rounded-lg font-semibold text-pink-600">Venha Comigo</a>
-            </nav>
+        <div class="max-w-6xl mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
+                <a href="index.html" class="text-3xl text-pink-500" style="font-family: 'Dancing Script', cursive;">Eu & Você</a>
+                <nav class="hidden md:flex space-x-2 sm:space-x-4">
+                    <a href="nos.html" class="bg-white text-sm px-4 py-2 rounded-lg font-semibold text-pink-600 shadow-sm ring-2 ring-pink-200">Para Você</a>
+                    <a href="album.html" class="bg-pink-200/50 hover:bg-pink-200 transition-colors text-sm px-4 py-2 rounded-lg font-semibold text-pink-600">Álbum</a>
+                    <a href="venhaComigo.html" class="bg-pink-200/50 hover:bg-pink-200 transition-colors text-sm px-4 py-2 rounded-lg font-semibold text-pink-600">Venha Comigo</a>
+                </nav>
+                <div class="md:hidden">
+                    <button id="menu-btn" class="text-pink-600 focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-4 6h16"></path></svg>
+                    </button>
+                </div>
+            </div>
+            <div id="mobile-menu" class="hidden md:hidden mt-3">
+                <a href="nos.html" class="block text-center py-2 text-sm text-pink-600 bg-pink-50 rounded-lg mb-1">Para Você</a>
+                <a href="album.html" class="block text-center py-2 text-sm text-pink-600 bg-pink-50 rounded-lg mb-1">Álbum</a>
+                <a href="venhaComigo.html" class="block text-center py-2 text-sm text-pink-600 bg-pink-50 rounded-lg">Venha Comigo</a>
+            </div>
         </div>
     </header>
 
-    <main class="w-full h-full flex items-center justify-center py-12 px-4">
-        
-        <div class="envelope-container group">
+    <main class="w-full min-h-screen flex items-center justify-center py-12 px-4">
+        <div id="envelope-container" class="envelope-container">
             <div class="envelope-fundo"></div>
             <div class="envelope-frente">
-                <div class="aba aba-esquerda"></div>
-                <div class="aba aba-direita"></div>
-                <div class="aba aba-baixo"></div>
+                <div class="aba aba-esquerda"></div> <div class="aba aba-direita"></div> <div class="aba aba-baixo"></div>
             </div>
             <div class="aba-topo"></div>
             <div class="selo">❤️</div>
-
             <div class="carta-folha no-scrollbar overflow-y-auto">
-                <h2 id="carta-titulo" class="text-4xl text-center text-pink-500 mb-2">
-                    Para a Minha Rainha
-                </h2>
+                <h2 id="carta-titulo" class="text-4xl text-center text-pink-500 mb-2">Para a Minha Rainha</h2>
                 <div class="mensagem-rainha text-center space-y-6">
                     <p>
                         Depois de muitas Luas eu pude sentir o seu perfume.
-                        Depois de muitas Luas eu pude admirar o seu sorriso. 
+                        Depois de muitas Luas eu pude admirar o seu sorriso.
                     </p>
                     <p>
                         Depois de muitas Luas eu pude sentir o seu toque.
@@ -179,29 +115,38 @@
                     <p>
                         L.K
                     </p>
-                    <p >
-                        Eu te amo infinitamente.
-                    </p>
+                    <p>Eu te amo infinitamente.</p>
                 </div>
+                <p class="text-center text-xs text-gray-400 mt-6">(Toque na carta para fechar)</p>
             </div>
         </div>
-
     </main>
 
-    <footer class="text-center py-8 text-sm text-gray-500 fixed bottom-0 w-full">
-        Feito com carinho, para a minha Rainha. 👑
-    </footer>
-
+    <footer class="text-center py-8 text-sm text-gray-500"> Feito com carinho, para a minha Rainha. 👑 </footer>
+    
     <script>
         window.addEventListener('DOMContentLoaded', () => {
+            // Script da música de fundo
             const music = document.getElementById('bg-music');
             music.volume = 0.3;
             music.play().catch(error => {
-                console.log('Autoplay bloqueado. Clique na página para iniciar a música.');
                 document.body.addEventListener('click', () => music.play(), { once: true });
+            });
+
+            // Script para abrir/fechar a carta com clique/toque
+            const envelope = document.getElementById('envelope-container');
+            envelope.addEventListener('click', () => {
+                envelope.classList.toggle('aberto');
             });
         });
     </script>
-
+    
+    <script>
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
 </body>
 </html>
