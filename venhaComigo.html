@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Uma Canção Para Nós • Aniversário</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" href="image/girassol.png" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;600&display=swap');
+        body { font-family: 'Montserrat', sans-serif; }
+        h1 { font-family: 'Dancing Script', cursive; }
+    </style>
+</head>
+<body class="bg-pink-50 text-gray-800 font-sans">
+    <header class="sticky top-0 bg-pink-100/90 backdrop-blur-sm shadow-sm z-30">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="index.html" class="text-3xl text-pink-500" style="font-family: 'Dancing Script', cursive;">Eu & Você</a>
+            <nav class="space-x-2 sm:space-x-4">
+                <a href="nos.html" class="bg-pink-200/50 hover:bg-pink-200 transition-colors text-sm px-4 py-2 rounded-lg font-semibold text-pink-600">Para Você</a>
+                <a href="album.html" class="bg-pink-200/50 hover:bg-pink-200 transition-colors text-sm px-4 py-2 rounded-lg font-semibold text-pink-600">Álbum</a>
+                <a href="venhaComigo.html" class="bg-white text-sm px-4 py-2 rounded-lg font-semibold text-pink-600 shadow-sm ring-2 ring-pink-200">Venha Comigo</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 pb-16 pt-12">
+        <div class="text-center mb-12">
+            <h1 class="text-6xl md:text-7xl text-pink-500">Nossa Trilha Sonora</h1>
+            <p class="mt-2 text-lg text-gray-700">Aperte o play e feche os olhos...</p>
+        </div>
+        
+        <div class="mx-auto max-w-3xl bg-white p-4 rounded-2xl shadow-2xl border-2 border-pink-200">
+            <div class="aspect-w-16 aspect-h-9">
+                <video class="rounded-xl w-full h-full" controls autoplay loop>
+                    <source src="musica/videoDaMusica.mp4" type="video/mp4">
+                    Seu navegador não suporta a tag de vídeo.
+                </video>
+            </div>
+        </div>
+
+    </main>
+    
+    <footer class="text-center py-8 text-sm text-gray-500">
+        Feito com carinho, só pra você. 🌸
+    </footer>
+
+    <script src="https://cdn.tailwindcss.com?plugins=aspect-ratio"></script>
+</body>
+</html>

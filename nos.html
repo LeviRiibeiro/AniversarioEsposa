@@ -4,13 +4,124 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nossa História • Aniversário</title>
+    <title>Uma Carta Para a Rainha • Aniversário</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="icon" href="image/girassol.png" type="image/png" />
-     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;600&display=swap');
-        body { font-family: 'Montserrat', sans-serif; }
-        h1, h2 { font-family: 'Dancing Script', cursive; }
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Great+Vibes&family=Montserrat:wght@400&display=swap');
+
+        /* --- CORREÇÃO DEFINITIVA PARA A BARRA DE ROLAGEM --- */
+        html, body {
+            overflow: hidden; /* Impede a rolagem na página e oculta a barra */
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* --- ESTILO "RAINHA" --- */
+        #carta-titulo {
+            font-family: 'Dancing Script', cursive;
+        }
+
+        .mensagem-rainha {
+            font-family: 'Great Vibes', cursive;
+            font-size: 26px;
+            line-height: 1.5;
+            color: #4a2c3a;
+        }
+        
+        /* --- ANIMAÇÃO PRECISA E SEM BUGS --- */
+        .envelope-container {
+            position: relative;
+            width: 380px;
+            height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .carta-folha {
+            position: absolute;
+            width: 420px;
+            height: auto;
+            max-height: 600px;
+            padding: 2rem;
+            background-color: #fdfaf6;
+            border-radius: 6px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            z-index: 20;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.5);
+            opacity: 0;
+            transition: all 1.2s cubic-bezier(0.68, -0.6, 0.27, 1.55);
+        }
+        
+        .group:hover .carta-folha {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(1.0);
+            opacity: 1;
+            z-index: 100;
+        }
+        
+        .envelope-fundo {
+            position: absolute; width: 100%; height: 100%;
+            background-color: #fbcfe8;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 25px -5px rgb(0 0 0 / 0.1);
+            z-index: 10;
+        }
+
+        .envelope-frente {
+            position: absolute; width: 100%; height: 100%;
+            z-index: 30;
+        }
+
+        .aba { position: absolute; width: 100%; height: 100%; }
+        .aba-esquerda { background-image: linear-gradient(to right, #fbcfe8, #fce7f3); clip-path: polygon(0 0, 50% 50%, 0 100%); }
+        .aba-direita { background-image: linear-gradient(to left, #fbcfe8, #fce7f3); clip-path: polygon(100% 0, 50% 50%, 100% 100%); }
+        .aba-baixo { background-image: linear-gradient(to top, #f9a8d4, #fbcfe8); clip-path: polygon(0 100%, 50% 50%, 100% 100%); }
+
+        .aba-topo {
+            position: absolute; width: 100%; height: 50%; top: 0;
+            background-color: #f9a8d4;
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+            transform-origin: top;
+            transition: transform 0.7s ease-in-out 0.3s;
+            z-index: 40;
+        }
+        .group:hover .aba-topo { transform: rotateX(180deg); }
+
+        .selo {
+            position: absolute; top: 45%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px; height: 50px;
+            background-color: #f43f5e;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; color: white;
+            border: 3px solid #fff;
+            box-shadow: 0 0 0 2px #f43f5e;
+            z-index: 50;
+            transition: all 0.5s ease-out;
+        }
+        .group:hover .selo { opacity: 0; transform: translate(-50%, -50%) scale(0); }
+
+        /* Classe para ocultar a barra de rolagem em qualquer elemento INTERNO */
+        .no-scrollbar {
+           scrollbar-width: none;  /* Firefox */
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;  /* Chrome, Safari, etc. */
+        }
+
     </style>
 </head>
 <body class="bg-pink-50 text-gray-800 font-sans">
@@ -19,54 +130,78 @@
         <source src="musica/musicaFundo.mp3" type="audio/mp3" />
         Seu navegador não suporta áudio.
     </audio>
+
+    <header class="sticky top-0 bg-pink-100/90 backdrop-blur-sm shadow-sm z-50">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="index.html" class="text-3xl text-pink-500" style="font-family: 'Dancing Script', cursive;">Eu & Você</a>
+            <nav class="space-x-2 sm:space-x-4">
+                <a href="nos.html" class="bg-white text-sm px-4 py-2 rounded-lg font-semibold text-pink-600 shadow-sm ring-2 ring-pink-200">Para Você</a>
+                <a href="album.html" class="bg-pink-200/50 hover:bg-pink-200 transition-colors text-sm px-4 py-2 rounded-lg font-semibold text-pink-600">Álbum</a>
+                 <a href="venhaComigo.html" class="bg-pink-200/50 hover:bg-pink-200 transition-colors text-sm px-4 py-2 rounded-lg font-semibold text-pink-600">Venha Comigo</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="w-full h-full flex items-center justify-center py-12 px-4">
+        
+        <div class="envelope-container group">
+            <div class="envelope-fundo"></div>
+            <div class="envelope-frente">
+                <div class="aba aba-esquerda"></div>
+                <div class="aba aba-direita"></div>
+                <div class="aba aba-baixo"></div>
+            </div>
+            <div class="aba-topo"></div>
+            <div class="selo">❤️</div>
+
+            <div class="carta-folha no-scrollbar overflow-y-auto">
+                <h2 id="carta-titulo" class="text-4xl text-center text-pink-500 mb-2">
+                    Para a Minha Rainha
+                </h2>
+                <div class="mensagem-rainha text-center space-y-6">
+                    <p>
+                        Depois de muitas Luas eu pude sentir o seu perfume.
+                        Depois de muitas Luas eu pude admirar o seu sorriso. 
+                    </p>
+                    <p>
+                        Depois de muitas Luas eu pude sentir o seu toque.
+                        Depois de muitas Luas eu pude ouvir a sua doce Voz.
+                        Depois de Muitas Luas vagando pela imensa escuridão,
+                        Finalmente alcancei sua luz.
+                    </p>
+                    <p>
+                        Depois de muitas Luas pude finalmente... 
+                        Pude Finalmente descansar... 
+                        Descansar em seus braços, me apaixonar pelo seu sorriso,
+                        morar em seu coração... 
+                        Com a certeza que novamente pelas Luas não terei que vaguear.
+                    </p>
+                    <p>
+                        L.K
+                    </p>
+                    <p >
+                        Eu te amo infinitamente.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="text-center py-8 text-sm text-gray-500 fixed bottom-0 w-full">
+        Feito com carinho, para a minha Rainha. 👑
+    </footer>
+
     <script>
         window.addEventListener('DOMContentLoaded', () => {
             const music = document.getElementById('bg-music');
             music.volume = 0.3;
             music.play().catch(error => {
-                console.log('Autoplay bloqueado.');
+                console.log('Autoplay bloqueado. Clique na página para iniciar a música.');
                 document.body.addEventListener('click', () => music.play(), { once: true });
             });
         });
     </script>
-
-    <header class="sticky top-0 bg-pink-100/90 backdrop-blur-sm shadow-sm z-10">
-        <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
-            <a href="index.html" class="text-3xl text-pink-500" style="font-family: 'Dancing Script', cursive;">Eu & Você</a>
-            <nav class="space-x-2 sm:space-x-4">
-                <a href="nos.html" class="bg-white text-sm px-4 py-2 rounded-lg font-semibold text-pink-600 shadow-sm ring-2 ring-pink-200">Us</a>
-                <a href="album.html" class="bg-pink-200/50 hover:bg-pink-200 transition-colors text-sm px-4 py-2 rounded-lg font-semibold text-pink-600">Álbum</a>
-                <a href="https://www.youtube.com/watch?v=2HHFPojl-Vk&ab_channel=DonaLegendas" target="_blank" class="bg-pink-200/50 hover:bg-pink-200 transition-colors text-sm px-4 py-2 rounded-lg font-semibold text-pink-600">Venha Comigo</a>
-            </nav>
-        </div>
-    </header>
-
-    <main class="max-w-4xl mx-auto px-4 py-12 md:py-20">
-        <div class="flex flex-col-reverse md:flex-row items-center justify-center gap-12 bg-white/50 p-8 rounded-lg shadow-lg">
-            <div class="md:w-3/5 text-center md:text-left">
-    <h2 class="text-5xl lg:text-6xl text-pink-500 mb-6">Para o amor da minha vida...</h2>
-    <div class="space-y-4 text-gray-700 leading-relaxed text-base">
-        <p>
-            Meu amor, hoje o universo inteiro celebra a sua existência, mas ninguém celebra com mais alegria do que eu. Você não apenas faz aniversário; você renova a luz que ilumina a minha vida todos os dias.
-        </p>
-        <p>
-            Cada sorriso seu é a melodia que embala a minha alma, e cada abraço seu é o meu porto seguro, o lugar para onde eu sempre quero voltar. Viver ao seu lado transformou meus dias comuns em uma aventura extraordinária.
-        </p>
-        <p class="font-semibold text-pink-600">
-            Este site é apenas um pequeno reflexo do amor gigante que sinto por você. Um lugar para começarmos a guardar os infinitos capítulos da nossa história que ainda vamos escrever.
-        </p>
-        <p class="font-bold text-lg text-pink-600">Feliz aniversário, minha vida. Eu te amo mais do que as palavras jamais conseguirão expressar!</p>
-    </div>
-</div>
-            <div class="md:w-2/5 flex justify-center">
-                <img src="image/flor.png" alt="Imagem Decorativa do Girassol" class="w-40 h-40 object-contain drop-shadow-lg transition-transform duration-500 hover:scale-110">
-            </div>
-        </div>
-    </main>
-
-    <footer class="text-center py-8 text-sm text-gray-500">
-        Feito com carinho, só pra você. 🌸
-    </footer>
 
 </body>
 </html>

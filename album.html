@@ -8,14 +8,33 @@
     <link rel="icon" href="image/girassol.png" />
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;600&display=swap');
-        body { font-family: 'Montserrat', sans-serif; }
-        h1 { font-family: 'Dancing Script', cursive; }
         
-        /* Animação para as fotos aparecerem suavemente */
+        /* --- CÓDIGO PARA OCULTAR A BARRA DE ROLAGEM DA PÁGINA --- */
+        html {
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none;  /* IE e Edge */
+        }
+        html::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, etc. */
+        }
+
+        body { 
+            font-family: 'Montserrat', sans-serif;
+            background-color: #FFF8F9; /* Um rosa ainda mais claro e delicado */
+        }
+        h1, .photo-caption { 
+            font-family: 'Dancing Script', cursive; 
+        }
+        
+        /* --- ESTILO MÁGICO PARA O ÁLBUM --- */
+
+        /* Animação de entrada */
         .photo-card {
             opacity: 0;
-            transform: translateY(20px);
-            animation: fadeIn 0.5s ease-out forwards;
+            transform: translateY(30px);
+            animation: fadeIn 0.6s ease-out forwards;
+            transition: transform 0.4s ease-out;
+            margin-bottom: 2rem; /* Espaçamento entre as linhas de fotos */
         }
 
         @keyframes fadeIn {
@@ -24,9 +43,69 @@
                 transform: translateY(0);
             }
         }
+        
+        /* Efeito "fotos espalhadas" */
+        .photo-card:nth-child(3n+1) { transform: rotate(-3deg); }
+        .photo-card:nth-child(3n+2) { transform: rotate(3deg); }
+        .photo-card:nth-child(3n+3) { transform: rotate(-2deg); }
+
+        /* Efeito de flutuar no hover */
+        .photo-card:hover {
+            transform: translateY(-15px) rotate(0deg) scale(1.08);
+            z-index: 20;
+        }
+
+        /* A moldura estilo polaroid */
+        .polaroid-frame {
+            background-color: #fff;
+            padding: 1rem; /* Padding interno da moldura */
+            padding-bottom: 5rem; /* Espaço extra embaixo para a legenda */
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden; /* Importante para o efeito de brilho */
+        }
+
+        .polaroid-frame img {
+            width: 100%;
+            height: 400px; /* Aumentei a altura da área da imagem */
+            object-fit: contain; /* ESSENCIAL: Garante que a imagem completa seja exibida, mantendo a proporção */
+            border: 1px solid #fde8f0;
+            background-color: #fdfaf6; /* Adiciona uma cor de fundo caso a foto não preencha tudo */
+        }
+
+        /* A legenda com estilo de caligrafia */
+        .photo-caption {
+            position: absolute;
+            bottom: 1.25rem;
+            left: 1rem;
+            right: 1rem;
+            text-align: center;
+            font-size: 1.5rem; /* 24px */
+            color: #a16278; /* Um tom de rosa antigo */
+            pointer-events: none; /* Permite clicar na foto através da legenda */
+        }
+        
+        /* O brilho mágico no hover */
+        .polaroid-frame::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -150%;
+            width: 70%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.5) 50%, rgba(255,255,255,0) 100%);
+            transform: skewX(-25deg);
+            transition: left 0.7s;
+        }
+
+        .photo-card:hover .polaroid-frame::before {
+            left: 150%;
+        }
+
     </style>
 </head>
-<body class="bg-pink-50 text-gray-800 font-sans">
+<body class="text-gray-800 font-sans">
 
     <audio autoplay loop class="hidden" id="bg-music">
         <source src="musica/musicaFundo.mp3" type="audio/mp3" />
@@ -43,56 +122,71 @@
         });
     </script>
     
-    <header class="sticky top-0 bg-pink-100/90 backdrop-blur-sm shadow-sm z-10">
+    <header class="sticky top-0 bg-pink-100/80 backdrop-blur-sm shadow-sm z-30">
         <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
             <a href="index.html" class="text-3xl text-pink-500" style="font-family: 'Dancing Script', cursive;">Eu & Você</a>
             <nav class="space-x-2 sm:space-x-4">
-                <a href="nos.html" class="bg-pink-200/50 hover:bg-pink-200 transition-colors text-sm px-4 py-2 rounded-lg font-semibold text-pink-600">Us</a>
+                <a href="nos.html" class="bg-pink-200/50 hover:bg-pink-200 transition-colors text-sm px-4 py-2 rounded-lg font-semibold text-pink-600">Para Você</a>
                 <a href="album.html" class="bg-white text-sm px-4 py-2 rounded-lg font-semibold text-pink-600 shadow-sm ring-2 ring-pink-200">Álbum</a>
-                <a href="https://www.youtube.com/watch?v=2HHFPojl-Vk&ab_channel=DonaLegendas" target="_blank" class="bg-pink-200/50 hover:bg-pink-200 transition-colors text-sm px-4 py-2 rounded-lg font-semibold text-pink-600">Venha Comigo</a>
+                <a href="venhaComigo.html" class="bg-pink-200/50 hover:bg-pink-200 transition-colors text-sm px-4 py-2 rounded-lg font-semibold text-pink-600">Venha Comigo</a>
             </nav>
         </div>
     </header>
 
     <main class="max-w-7xl mx-auto px-4 pb-16 pt-12">
-        <div class="text-center mb-12">
+        <div class="text-center mb-16">
             <h1 class="text-6xl md:text-7xl text-pink-500">Nosso Álbum de Memórias</h1>
-            <p class="mt-2 text-lg text-gray-700">Cada clique, um pedacinho da nossa linda história.</p>
+            <p class="mt-2 text-lg text-gray-700">Cada foto, um tesouro guardado com amor.</p>
         </div>
         
-        <div id="gallery" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-6">
+        <div id="gallery" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-8 gap-x-4">
             </div>
     </main>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const galleryContainer = document.getElementById('gallery');
-            
-            // ===================================================================
-            //  IMPORTANTE: Altere o número abaixo para o total de fotos que você tem!
-            //  Ex: Se você tem 20 fotos (1.jpg até 20.jpg), coloque 20.
-            // ===================================================================
-            const totalDeFotos = 70; // <--- EDITE ESTE NÚMERO
+            const totalDeFotos = 82; 
+
+            const legendas = [
+                "Grad do Amor", "Um Dia Especial", "Memorias Inesqueciveis", "A Perfeita",
+                "Meu Lugar Favorito", "Borboletas!", "Criando memórias...", "Sempre ao seu lado",
+                "Um dia que ficou no coração!!!", "Amor em Cada Instante", "Carinha de Sono", "Minha Paz",
+                "Minha Dupla", "Recordações preciosas", "Momentos de alegria", "A vida é melhor com você",
+                "Gatinha Linda", "Nossos Corações ❤️", "Fofinha no Banho", "Juntos somos mais fortes",
+                "Linda e Majestosa", "Um olhar que diz tudo", "Carinha de Brava", "Felizes e Sempre Juntos",
+                "Linda e Timida", "6 anos de Historia", "Compartilhando Sorrisos", "Quando tudo começou",
+                "A Gata e o Noel", "I SEE YOU", "Um brinde ao nosso amor", "Alegria contagiante",
+                "Paz e tranquilidade", "Um elo eterno", "Baianos de Coração", "Gata, Linda e Perfeita",
+                "Muitas Beijocas e Amor", "A Gata ataca novamente", "A força da nossa união", "Um carinho na alma",
+                "Recordações felizes", "The Godess Chess", "Um pedacinho do céu", "A Big Boy with a Girl'",
+                "Um Laço Infinito", "Nossa Doce União", "Um Raio de Sol", "A arte de amar",
+                "Um tesouro sem preço", "Nossa jornada", "A melodia do coração", "Um eterno romance",
+                "O Morango, A Colher", "Dogs AuAu", "A cor da felicidade", "Um porto seguro",
+                "Nossa canção", "A magia do encontro", "Um farol de amor", "Nossa promessa",
+                "A doçura do afeto", "Um laço de carinho", "Nossa união", "Um dia lindo",
+                "Alegria sem fim", "Pura felicidade", "Nosso amor vive", "Um instante mágico",
+                "Sempre juntos", "Amor que floresce", "Me and You", "Fofus", "Shy Girl", "Smiles", "Eu e minha Deusa",
+                "Linda e Perfeita", "US", "Wouldn't It Be Nice", "Eu e Ela", "Lindus Cachinhos", "I Bite You", "Cheirinho no cangote"
+            ];
 
             for (let i = 1; i <= totalDeFotos; i++) {
-                // Cria o card da foto
                 const card = document.createElement('div');
-                card.className = 'photo-card group bg-white border border-pink-100 shadow-lg rounded-xl overflow-hidden transform transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:z-20';
-                
-                // Adiciona um atraso na animação para um efeito cascata
-                card.style.animationDelay = `${i * 50}ms`;
+                card.className = 'photo-card justify-self-center';
+                card.style.animationDelay = `${i * 80}ms`;
 
-                // Assumindo que suas fotos estão na pasta /fotos/ e são nomeadas como 1.jpg, 2.jpg, etc.
+                const legenda = legendas[i - 1] || ""; 
                 const caminhoDaImagem = `image/foto ${i}.jpg`;
                 
-                // Conteúdo do card
                 card.innerHTML = `
-                    <a href="${caminhoDaImagem}" target="_blank" title="Clique para ampliar a foto ${i}">
-                        <img src="${caminhoDaImagem}" alt="Nosso momento especial ${i}" class="w-full h-72 object-cover transition-transform duration-300 group-hover:scale-110" loading="lazy">
-                    </a>
+                    <div class="polaroid-frame">
+                        <a href="${caminhoDaImagem}" target="_blank" title="Clique para ampliar: ${legenda}">
+                            <img src="${caminhoDaImagem}" alt="${legenda || `Nosso momento especial ${i}`}" loading="lazy">
+                        </a>
+                        <p class="photo-caption">${legenda}</p>
+                    </div>
                 `;
                 
-                // Adiciona o card criado à galeria
                 galleryContainer.appendChild(card);
             }
         });
